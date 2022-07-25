@@ -6,9 +6,12 @@ import { Button, Card, CardContent, FormControl, FormControlLabel, FormLabel, Ra
 
 import { Layout } from '../components/layouts';
 
-const ThemeChangerPage: FC = (props) => {
-  console.log({ props });
-  const [currentTheme, setCurrentTheme] = useState('light');
+interface Props {
+  theme: string;
+}
+
+const ThemeChangerPage: FC<Props> = ({ theme }) => {
+  const [currentTheme, setCurrentTheme] = useState(theme);
   const onChangeTheme = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedTheme = event.target.value;
 
@@ -51,10 +54,11 @@ const ThemeChangerPage: FC = (props) => {
 // - Only if you need to pre-render a page whose data must be fetched at request time
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const { theme = 'light', name = 'No name' } = req.cookies;
-  console.log(theme, name);
+  const validThemes = ['light', 'dark', 'custom'];
+
   return {
     props: {
-      theme,
+      theme: validThemes.includes(theme) ? theme : 'dark',
       name,
     },
   };

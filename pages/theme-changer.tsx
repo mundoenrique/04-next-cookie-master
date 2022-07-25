@@ -12,16 +12,16 @@ interface Props {
 
 const ThemeChangerPage: FC<Props> = ({ theme }) => {
   const [currentTheme, setCurrentTheme] = useState(theme);
-  const onChangeTheme = (event: ChangeEvent<HTMLInputElement>) => {
+  const onThemeChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedTheme = event.target.value;
 
-    console.log(selectedTheme);
+    console.log({ selectedTheme });
     setCurrentTheme(selectedTheme);
     localStorage.setItem('theme', selectedTheme);
     Cookies.set('theme', selectedTheme);
   };
   const onClick = async () => {
-    const { data } = await axios.get('api/hello');
+    const { data } = await axios.get('/api/hello');
 
     console.log({ data });
   };
@@ -29,6 +29,8 @@ const ThemeChangerPage: FC<Props> = ({ theme }) => {
   useEffect(() => {
     console.log('localStorage:', localStorage.getItem('theme'));
     console.log('Cookies:', Cookies.get('theme'));
+
+    // axios.post('/api/hello', { localStorage.getItem('them')});
   }, []);
 
   return (
@@ -37,7 +39,7 @@ const ThemeChangerPage: FC<Props> = ({ theme }) => {
         <CardContent>
           <FormControl>
             <FormLabel>Tema</FormLabel>
-            <RadioGroup value={currentTheme} onChange={onChangeTheme}>
+            <RadioGroup value={currentTheme} onChange={onThemeChange}>
               <FormControlLabel value="light" control={<Radio />} label="Light" />
               <FormControlLabel value="dark" control={<Radio />} label="Dark" />
               <FormControlLabel value="custom" control={<Radio />} label="Custom" />

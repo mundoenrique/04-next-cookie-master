@@ -6,4 +6,4 @@ const AboutPage = () => {
   );
 };
 
-export default about;
+export default AboutPage;

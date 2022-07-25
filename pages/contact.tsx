@@ -1,9 +1,7 @@
-const ContactPage = () => {
-  return (
-    <>
-      <h1>contact</h1>
-    </>
-  );
+import { NextPage } from 'next';
+
+const ContactPage: NextPage = () => {
+  return <div>ContactPage</div>;
 };
 
 export default ContactPage;
